@@ -1,0 +1,77 @@
+2026-10-08 20:37:37,257 - INFO - ============================================================
+2026-10-08 20:37:37,257 - INFO - STARTING ETL LOAD
+2026-10-08 20:37:37,257 - INFO - ============================================================
+2026-10-08 20:37:37,258 - INFO - Input directory: ./extracted_data
+2026-10-08 20:37:37,258 - INFO - Load mode: incremental
+2026-10-08 20:37:37,258 - INFO - ============================================================
+2026-10-08 20:37:37,342 - INFO - Connected to warehouse database
+2026-10-08 20:37:37,342 - INFO - 
+2026-10-08 20:37:37,342 - INFO - -> Loading DIMENSIONS...
+2026-10-08 20:37:37,385 - INFO -   dim_clients: 11 rows upserted
+2026-10-08 20:37:37,422 - INFO -   dim_accounts: 4 rows upserted
+2026-10-08 20:37:37,444 - ERROR - [ERROR] Failed to upsert dim_instruments: duplicate key value violates unique constraint "dim_instruments_ticker_key"
+DETAIL:  Key (ticker)=(AAPL) already exists.
+
+2026-10-08 20:37:37,444 - ERROR - Instruments load failed: duplicate key value violates unique constraint "dim_instruments_ticker_key"
+DETAIL:  Key (ticker)=(AAPL) already exists.
+
+2026-10-08 20:37:37,445 - INFO - 
+2026-10-08 20:37:37,445 - INFO - -> Loading FACTS...
+2026-10-08 20:37:37,467 - ERROR - [ERROR] Failed to upsert fact_orders: insert or update on table "fact_orders" violates foreign key constraint "fk_fact_orders_instrument"
+DETAIL:  Key (instrument_id)=(aa0e8400-e29b-41d4-a716-446655440005) is not present in table "dim_instruments".
+
+2026-10-08 20:37:37,468 - ERROR - Orders load failed: insert or update on table "fact_orders" violates foreign key constraint "fk_fact_orders_instrument"
+DETAIL:  Key (instrument_id)=(aa0e8400-e29b-41d4-a716-446655440005) is not present in table "dim_instruments".
+
+2026-10-08 20:37:37,491 - INFO -   fact_transactions: 2 rows upserted
+2026-10-08 20:37:37,662 - INFO -   fact_audit_logs: 450 rows upserted
+2026-10-08 20:37:37,680 - ERROR - [ERROR] Failed to upsert fact_price_history: insert or update on table "fact_price_history" violates foreign key constraint "fk_fact_price_history_instrument"
+DETAIL:  Key (instrument_id)=(d8b77ecf-819c-4dad-8295-dfde01732c93) is not present in table "dim_instruments".
+
+2026-10-08 20:37:37,680 - ERROR - Price history load failed: insert or update on table "fact_price_history" violates foreign key constraint "fk_fact_price_history_instrument"
+DETAIL:  Key (instrument_id)=(d8b77ecf-819c-4dad-8295-dfde01732c93) is not present in table "dim_instruments".
+
+2026-10-08 20:37:37,682 - INFO -   fact_watchlists: 0 rows (empty file)
+2026-10-08 20:37:37,683 - INFO -   fact_historical_snapshots: 0 rows (empty file)
+2026-10-08 20:37:37,683 - INFO - 
+2026-10-08 20:37:37,683 - INFO - -> Loading SNAPSHOTS...
+2026-10-08 20:37:37,728 - INFO -   Truncated snapshot_holdings
+2026-10-08 20:37:37,734 - ERROR - [ERROR] Failed to load snapshot_holdings: insert or update on table "snapshot_holdings" violates foreign key constraint "fk_snapshot_holdings_instrument"
+DETAIL:  Key (instrument_id)=(aa0e8400-e29b-41d4-a716-446655440005) is not present in table "dim_instruments".
+
+2026-10-08 20:37:37,735 - ERROR - Holdings snapshot load failed: insert or update on table "snapshot_holdings" violates foreign key constraint "fk_snapshot_holdings_instrument"
+DETAIL:  Key (instrument_id)=(aa0e8400-e29b-41d4-a716-446655440005) is not present in table "dim_instruments".
+
+2026-10-08 20:37:37,735 - INFO - 
+2026-10-08 20:37:37,735 - INFO - -> Validating load...
+2026-10-08 20:37:37,789 - INFO -   dim_clients: 23 rows
+2026-10-08 20:37:37,819 - INFO -   dim_accounts: 19 rows
+2026-10-08 20:37:37,849 - INFO -   dim_instruments: 20 rows
+2026-10-08 20:37:37,881 - INFO -   fact_orders: 104 rows
+2026-10-08 20:37:37,912 - INFO -   fact_transactions: 2 rows
+2026-10-08 20:37:37,945 - INFO -   fact_audit_logs: 450 rows
+2026-10-08 20:37:37,976 - WARNING -   fact_price_history: 0 rows (empty)
+2026-10-08 20:37:38,007 - WARNING -   fact_watchlists: 0 rows (empty)
+2026-10-08 20:37:38,038 - INFO -   fact_historical_snapshots: 60 rows
+2026-10-08 20:37:38,069 - WARNING -   snapshot_holdings: 0 rows (empty)
+2026-10-08 20:37:38,070 - INFO - ============================================================
+2026-10-08 20:37:38,070 - INFO - Total rows loaded: 467
+2026-10-08 20:37:38,070 - INFO - [OK] All validations passed
+2026-10-08 20:37:38,070 - INFO - ============================================================
+2026-10-08 20:37:38,070 - INFO - 
+2026-10-08 20:37:38,070 - INFO - -> Cleaning up staging files...
+2026-10-08 20:37:38,071 - INFO -   Deleted staging file: dim_accounts.csv
+2026-10-08 20:37:38,072 - INFO -   Deleted staging file: dim_clients.csv
+2026-10-08 20:37:38,072 - INFO -   Deleted staging file: dim_instruments.csv
+2026-10-08 20:37:38,073 - INFO -   Deleted staging file: fact_audit_logs.csv
+2026-10-08 20:37:38,073 - INFO -   Deleted staging file: fact_historical_snapshots.csv
+2026-10-08 20:37:38,073 - INFO -   Deleted staging file: fact_orders.csv
+2026-10-08 20:37:38,074 - INFO -   Deleted staging file: fact_price_history.csv
+2026-10-08 20:37:38,074 - INFO -   Deleted staging file: fact_transactions.csv
+2026-10-08 20:37:38,074 - INFO -   Deleted staging file: fact_watchlists.csv
+2026-10-08 20:37:38,075 - INFO -   Deleted staging file: snapshot_holdings.csv
+2026-10-08 20:37:38,075 - INFO - [OK] Cleaned up 10 staging files
+2026-10-08 20:37:38,075 - INFO - ============================================================
+2026-10-08 20:37:38,075 - INFO - [OK] LOAD COMPLETED SUCCESSFULLY
+2026-10-08 20:37:38,076 - INFO - ============================================================
+2026-10-08 20:37:38,076 - INFO - Warehouse connection closed

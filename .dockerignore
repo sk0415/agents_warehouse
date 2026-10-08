@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+dist
+build
+.pytest_cache
+.coverage
+
+# IDEs
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs (will be created in container)
+etl/etl_logs/*
+etl_logs/*
+
+# Extracted data (will be created in container)
+extracted_data/*
+
+# Documentation
+README.md
+*.md
+
+# Tests
+tests/
+wh_test/
+
+# Environment files (will mount as volume)
+.env
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

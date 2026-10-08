@@ -1,0 +1,49 @@
+2026-10-08 20:37:15,677 - INFO - ============================================================
+2026-10-08 20:37:15,678 - INFO - STARTING ETL EXTRACTION
+2026-10-08 20:37:15,679 - INFO - ============================================================
+2026-10-08 20:37:15,679 - INFO - Output directory: ./extracted_data
+2026-10-08 20:37:15,679 - INFO - Full extract: True
+2026-10-08 20:37:15,680 - INFO - ============================================================
+2026-10-08 20:37:15,762 - INFO - Connected to PostgreSQL database
+2026-10-08 20:37:15,762 - INFO - -> Extracting CLIENTS dimension...
+2026-10-08 20:37:15,790 - INFO -   Extracting clients: 11 rows
+2026-10-08 20:37:15,793 - INFO -   [OK] Written to ./extracted_data\dim_clients.csv
+2026-10-08 20:37:15,793 - INFO - -> Extracting ACCOUNTS dimension...
+2026-10-08 20:37:15,795 - INFO -   Extracting accounts: 4 rows
+2026-10-08 20:37:15,800 - INFO -   [OK] Written to ./extracted_data\dim_accounts.csv
+2026-10-08 20:37:15,803 - INFO - -> Extracting INSTRUMENTS dimension...
+2026-10-08 20:37:15,822 - INFO -   Extracting instruments: 472 rows
+2026-10-08 20:37:15,829 - INFO -   [OK] Written to ./extracted_data\dim_instruments.csv
+2026-10-08 20:37:15,832 - INFO - -> Extracting ORDERS fact table...
+2026-10-08 20:37:15,835 - INFO -   Extracting orders: 19 rows
+2026-10-08 20:37:15,837 - INFO -   [OK] Written to ./extracted_data\fact_orders.csv
+2026-10-08 20:37:15,840 - INFO - -> Extracting TRANSACTIONS fact table...
+2026-10-08 20:37:15,841 - INFO -   Extracting transactions: 2 rows
+2026-10-08 20:37:15,841 - INFO -   [OK] Written to ./extracted_data\fact_transactions.csv
+2026-10-08 20:37:15,842 - INFO - -> Extracting HOLDINGS snapshot...
+2026-10-08 20:37:15,843 - INFO -   Extracting holdings: 4 rows
+2026-10-08 20:37:15,844 - INFO -   [OK] Written to ./extracted_data\snapshot_holdings.csv
+2026-10-08 20:37:15,847 - INFO - -> Extracting HISTORICAL_SNAPSHOTS...
+2026-10-08 20:37:15,848 - INFO -   Extracting historical_snapshot: 0 rows
+2026-10-08 20:37:15,849 - INFO -   [OK] Written to ./extracted_data\fact_historical_snapshots.csv
+2026-10-08 20:37:15,850 - INFO - -> Extracting AUDIT_LOGS event stream...
+2026-10-08 20:37:15,857 - INFO -   Extracting audit_logs: 450 rows
+2026-10-08 20:37:15,866 - INFO -   [OK] Written to ./extracted_data\fact_audit_logs.csv
+2026-10-08 20:37:15,867 - INFO - -> Extracting INSTRUMENT_PRICE_HISTORY time series...
+2026-10-08 20:37:15,874 - INFO -   Extracting instrument_price_history: 682 rows
+2026-10-08 20:37:15,891 - INFO -   [OK] Written to ./extracted_data\fact_price_history.csv
+2026-10-08 20:37:15,891 - INFO - -> Extracting WATCHLISTS behavioral data...
+2026-10-08 20:37:15,894 - INFO -   Extracting watchlists: 0 rows
+2026-10-08 20:37:15,897 - INFO -   [OK] Written to ./extracted_data\fact_watchlists.csv
+2026-10-08 20:37:15,899 - INFO - ============================================================
+2026-10-08 20:37:15,900 - INFO - VALIDATION SUMMARY
+2026-10-08 20:37:15,901 - INFO - ============================================================
+2026-10-08 20:37:15,901 - WARNING - [WARNING] Validation Warnings (1):
+2026-10-08 20:37:15,901 - WARNING -   - historical_snapshot: No rows extracted
+2026-10-08 20:37:15,901 - WARNING - [WARNING] Validation Warnings (1):
+2026-10-08 20:37:15,901 - WARNING -   - watchlists: No rows extracted
+2026-10-08 20:37:15,902 - INFO - All validations passed
+2026-10-08 20:37:15,902 - INFO - ============================================================
+2026-10-08 20:37:15,903 - INFO - EXTRACTION COMPLETED SUCCESSFULLY
+2026-10-08 20:37:15,903 - INFO - ============================================================
+2026-10-08 20:37:15,903 - INFO - Database connection closed
