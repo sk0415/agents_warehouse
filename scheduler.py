@@ -1,7 +1,9 @@
 """
 ETL Scheduler
-Purpose: Schedule extract and load operations to run daily at 4 PM EST (market close).
-Runs the ETL pipeline automatically at the specified time using APScheduler.
+Purpose: Schedule extract and load operations to run at specified intervals.
+
+CURRENT MODE: TESTING - Runs every 1 minute
+PRODUCTION MODE: Daily at 4 PM EST (market close) - see setup_scheduler() for switch
 
 Usage:
     python scheduler.py
@@ -16,6 +18,7 @@ import pytz
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
+from apscheduler.triggers.interval import IntervalTrigger
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -110,40 +113,46 @@ def run_etl_pipeline():
 def setup_scheduler():
     """
     Configure and start the background scheduler.
-    Runs ETL pipeline daily at 4 PM EST (16:00 Eastern Time).
+    TESTING MODE: Runs every 1 minute
+    PRODUCTION: Runs daily at 4 PM EST (16:00 Eastern Time) - see commented code below
     """
     
     # Create scheduler
     scheduler = BackgroundScheduler()
     
-    # Use US/Eastern timezone for market close time
-    eastern = pytz.timezone('US/Eastern')
+    # ========== TESTING MODE: Every 1 minute ==========
+    trigger = IntervalTrigger(minutes=1)
     
+    # ========== PRODUCTION MODE: Daily at 4 PM EST (uncomment to switch back) ==========
+    # Use US/Eastern timezone for market close time
+    # eastern = pytz.timezone('US/Eastern')
+    # 
     # Configure trigger for 4 PM EST, Monday-Friday (trading days)
     # hour=16 (4 PM), minute=0, day_of_week=0-4 (Mon-Fri)
-    trigger = CronTrigger(
-        hour=16,
-        minute=0,
-        day_of_week='mon-fri',
-        timezone=eastern
-    )
+    # trigger = CronTrigger(
+    #     hour=16,
+    #     minute=0,
+    #     day_of_week='mon-fri',
+    #     timezone=eastern
+    # )
     
     # Add the job to the scheduler
     job = scheduler.add_job(
         run_etl_pipeline,
         trigger=trigger,
-        id='etl_market_close',
-        name='ETL Pipeline at Market Close (4 PM EST)',
-        misfire_grace_time=300,  # Allow 5 minutes grace if execution was delayed
+        id='etl_pipeline',
+        name='ETL Pipeline (TESTING - Every 1 Minute)',
+        misfire_grace_time=10,
         coalesce=True  # Don't run multiple times if missed
     )
     
     logger.info("Scheduler configured:")
     logger.info(f"  Job ID: {job.id}")
     logger.info(f"  Job Name: {job.name}")
-    logger.info(f"  Trigger: Daily at 4 PM EST (Mon-Fri)")
-    logger.info(f"  Timezone: {eastern}")
+    logger.info(f"  Trigger: Every 1 minute (TESTING MODE)")
     logger.info(f"  Next run: {job.next_run_time}")
+    logger.info("")
+    logger.info("  ⚠️  TESTING MODE ACTIVE - Uncomment CronTrigger in setup_scheduler() for production")
     
     # Start the scheduler
     scheduler.start()
