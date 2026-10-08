@@ -9,18 +9,18 @@ services:
     container_name: etl-scheduler
     environment:
       # Operational Database Connection (source)
-      OPERATIONAL_DB_HOST: ${OPERATIONAL_DB_HOST:-operational-db}
-      OPERATIONAL_DB_PORT: ${OPERATIONAL_DB_PORT:-5432}
-      OPERATIONAL_DB_NAME: ${OPERATIONAL_DB_NAME:-operational_db}
-      OPERATIONAL_DB_USER: ${OPERATIONAL_DB_USER:-postgres}
-      OPERATIONAL_DB_PASSWORD: ${OPERATIONAL_DB_PASSWORD:-postgres}
+      DB_HOST: ${DB_HOST:-localhost}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_NAME: ${DB_NAME:-operational_db}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
       
       # Warehouse Database Connection (destination)
-      WAREHOUSE_DB_HOST: ${WAREHOUSE_DB_HOST:-warehouse-db}
-      WAREHOUSE_DB_PORT: ${WAREHOUSE_DB_PORT:-5432}
-      WAREHOUSE_DB_NAME: ${WAREHOUSE_DB_NAME:-warehouse_db}
-      WAREHOUSE_DB_USER: ${WAREHOUSE_DB_USER:-postgres}
-      WAREHOUSE_DB_PASSWORD: ${WAREHOUSE_DB_PASSWORD:-postgres}
+      WH_DB_HOST: ${WH_DB_HOST:-localhost}
+      WH_DB_PORT: ${WH_DB_PORT:-5432}
+      WH_DB_NAME: ${WH_DB_NAME:-warehouse_db}
+      WH_DB_USER: ${WH_DB_USER:-postgres}
+      WH_DB_PASSWORD: ${WH_DB_PASSWORD:-postgres}
       
       # Python settings
       PYTHONUNBUFFERED: 1

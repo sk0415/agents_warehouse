@@ -20,17 +20,17 @@ cp .env.example .env
 Edit `.env` with your actual database connection details:
 
 ```env
-OPERATIONAL_DB_HOST=your-source-db-host
-OPERATIONAL_DB_PORT=5432
-OPERATIONAL_DB_NAME=your_operational_db
-OPERATIONAL_DB_USER=your_user
-OPERATIONAL_DB_PASSWORD=your_password
+DB_HOST=your-source-db-host
+DB_PORT=5432
+DB_NAME=your_operational_db
+DB_USER=your_user
+DB_PASSWORD=your_password
 
-WAREHOUSE_DB_HOST=your-warehouse-db-host
-WAREHOUSE_DB_PORT=5432
-WAREHOUSE_DB_NAME=your_warehouse_db
-WAREHOUSE_DB_USER=your_user
-WAREHOUSE_DB_PASSWORD=your_password
+WH_DB_HOST=your-warehouse-db-host
+WH_DB_PORT=5432
+WH_DB_NAME=your_warehouse_db
+WH_DB_USER=your_user
+WH_DB_PASSWORD=your_password
 ```
 
 ### 2. Build and Start the Service
@@ -123,8 +123,8 @@ services:
 Then update `.env`:
 
 ```env
-OPERATIONAL_DB_HOST=operational-db
-WAREHOUSE_DB_HOST=warehouse-db
+DB_HOST=operational-db
+WH_DB_HOST=warehouse-db
 ```
 
 ## Scheduling
