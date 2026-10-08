@@ -146,6 +146,9 @@ def setup_scheduler():
         coalesce=True  # Don't run multiple times if missed
     )
     
+    # Start the scheduler
+    scheduler.start()
+    
     logger.info("Scheduler configured:")
     logger.info(f"  Job ID: {job.id}")
     logger.info(f"  Job Name: {job.name}")
@@ -153,9 +156,6 @@ def setup_scheduler():
     logger.info(f"  Next run: {job.next_run_time}")
     logger.info("")
     logger.info("  ⚠️  TESTING MODE ACTIVE - Uncomment CronTrigger in setup_scheduler() for production")
-    
-    # Start the scheduler
-    scheduler.start()
     logger.info("✓ Scheduler started successfully")
     
     return scheduler
