@@ -121,27 +121,27 @@ def setup_scheduler():
     scheduler = BackgroundScheduler()
     
     # ========== TESTING MODE: Every 1 minute ==========
-    trigger = IntervalTrigger(minutes=1)
+    # trigger = IntervalTrigger(minutes=1)
     
     # ========== PRODUCTION MODE: Daily at 4 PM EST (uncomment to switch back) ==========
     # Use US/Eastern timezone for market close time
-    # eastern = pytz.timezone('US/Eastern')
-    # 
+    eastern = pytz.timezone('US/Eastern')
+    
     # Configure trigger for 4 PM EST, Monday-Friday (trading days)
     # hour=16 (4 PM), minute=0, day_of_week=0-4 (Mon-Fri)
-    # trigger = CronTrigger(
-    #     hour=16,
-    #     minute=0,
-    #     day_of_week='mon-fri',
-    #     timezone=eastern
-    # )
+    trigger = CronTrigger(
+        hour=16,
+        minute=0,
+        day_of_week='mon-fri',
+        timezone=eastern
+    )
     
     # Add the job to the scheduler
     job = scheduler.add_job(
         run_etl_pipeline,
         trigger=trigger,
         id='etl_pipeline',
-        name='ETL Pipeline (TESTING - Every 1 Minute)',
+        name='ETL Pipeline (PRODUCTION - Daily at 4 PM EST)',
         misfire_grace_time=10,
         coalesce=True  # Don't run multiple times if missed
     )
@@ -152,7 +152,7 @@ def setup_scheduler():
     logger.info("Scheduler configured:")
     logger.info(f"  Job ID: {job.id}")
     logger.info(f"  Job Name: {job.name}")
-    logger.info(f"  Trigger: Every 1 minute (TESTING MODE)")
+    logger.info(f"  Trigger: Daily at 4 PM EST (PRODUCTION MODE)")
     logger.info(f"  Next run: {job.next_run_time}")
     logger.info("")
     logger.info("  ⚠️  TESTING MODE ACTIVE - Uncomment CronTrigger in setup_scheduler() for production")
