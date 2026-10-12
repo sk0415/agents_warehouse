@@ -24,6 +24,10 @@ services:
       
       # Python settings
       PYTHONUNBUFFERED: 1
+
+    # Allow container to reach services bound on the Linux host
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     
     volumes:
       # Persist ETL logs (outside etl folder)
